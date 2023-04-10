@@ -5,6 +5,10 @@ import com.example.parking.dtos.ParkingDto;
 import com.example.parking.mappers.ParkingMapper;
 import com.example.parking.model.ParkingModel;
 import com.example.parking.services.ParkingService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/parking")
+@Tag(name = "Parking Controller")
 public class ParkingController {
 
     private final ParkingService parkingService;
@@ -24,18 +29,21 @@ public class ParkingController {
     }
 
     @GetMapping
+    @Operation(summary = "Find all parkings.")
     public ResponseEntity<List<ParkingDto>> findAll() {
         List<ParkingModel> parkingList = parkingService.findAll();
         return ResponseEntity.ok(parkingMapper.toParkingDtoList(parkingList));
     }
 
     @GetMapping("/{id}")
+    @Operation(summary = "Find a parking lot by id.")
     public ResponseEntity<ParkingDto> findById(@PathVariable String id) {
         ParkingModel parking = parkingService.findById(id);
         return ResponseEntity.ok(parkingMapper.toParkingDto(parking));
     }
 
     @PostMapping
+    @Operation(summary = "Create")
     public ResponseEntity<ParkingDto> create(@RequestBody ParkingCreateDto dto) {
         var parkingCreate = parkingMapper.toParkingCreate(dto);
         ParkingModel parking = parkingService.create(parkingCreate);
