@@ -1,11 +1,11 @@
 package com.example.parking.services;
 
+import com.example.parking.exceptions.ParkingNotFoundException;
 import com.example.parking.model.ParkingModel;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 public class ParkingService {
@@ -26,7 +26,11 @@ public class ParkingService {
     }
 
     public ParkingModel findById(String id) {
-        return parkingModelMap.get(id);
+        ParkingModel parking = parkingModelMap.get(id);
+        if (parking == null) {
+            throw new ParkingNotFoundException(id);
+        }
+        return parking;
     }
 
     public ParkingModel create(ParkingModel parkingCreate) {
