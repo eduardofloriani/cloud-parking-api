@@ -1,9 +1,14 @@
 package com.example.parking.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+
 import java.time.LocalDateTime;
 
+@Entity(name = "parking")
 public class ParkingModel {
 
+    @Id
     private String id;
     private String license;
     private String state;
