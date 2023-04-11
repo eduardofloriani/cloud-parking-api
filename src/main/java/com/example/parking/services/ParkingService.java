@@ -49,6 +49,14 @@ public class ParkingService {
         parkingRepository.deleteById(id);
     }
 
+    public ParkingModel checkOut(String id) {
+        ParkingModel parkingModel = findById(id);
+        parkingModel.setExitDate(LocalDateTime.now());
+        parkingModel.setBill(ParkingCheckOut.getBill(parkingModel));
+        parkingRepository.save(parkingModel);
+        return parkingModel;
+    }
+
     private static String getUUID() {
         return UUID.randomUUID().toString().replace("-", "");
     }
