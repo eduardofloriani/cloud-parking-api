@@ -9,6 +9,11 @@ import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import org.springframework.stereotype.Component;
 
 @Component
+@SecurityScheme(
+        name = "basicAuth",
+        type = SecuritySchemeType.HTTP,
+        scheme = "basic"
+)
 @OpenAPIDefinition(
         info = @Info(title = "Parking REST API",
                 description = "Spring Boot REST API for Parking",
